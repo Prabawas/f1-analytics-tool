@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203, W503
+exclude =
+    .git,
+    __pycache__,
+    cache,
+    envPortoF1,
+    envPortoF1_py312,
+    .venv,
+    venv

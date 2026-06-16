@@ -156,6 +156,18 @@ _CUSTOM_CSS = """
   color: var(--f1-red);
   font-variant-numeric: tabular-nums;
 }
+.kpi-help {
+  margin-left: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--muted);
+  cursor: help;
+}
+.kpi-help:hover {
+  color: var(--f1-red);
+}
 .hero-meta {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -297,10 +309,17 @@ def render_section_header(index: str, title: str) -> None:
 
 
 def render_kpi_card(column, label: str, value: str, sub: str, tooltip: str) -> None:
-    """Render a square, red-accented KPI card with mono numerals into a column."""
+    """Render a square, red-accented KPI card with mono numerals into a column.
+
+    The ``tooltip`` is attached to a small "?" helper icon beside the label via
+    the native HTML ``title`` attribute (no custom CSS tooltip), so the hover
+    target is the icon rather than the whole card.
+    """
     column.markdown(
-        f'<div class="kpi-card" title="{tooltip}">'
-        f'<div class="kpi-label">{label}</div>'
+        f'<div class="kpi-card">'
+        f'<div class="kpi-label">{label}'
+        f'<span class="kpi-help" title="{tooltip}">?</span>'
+        f"</div>"
         f'<div class="kpi-value">{value}</div>'
         f'<div class="kpi-sub">{sub}</div>'
         f"</div>",
@@ -324,7 +343,7 @@ def render_state_panel(title: str, message: str, hint: str = "") -> None:
 # Season options are static; Grand Prix and drivers are loaded dynamically.
 SEASONS = [2023, 2024, 2025]
 
-# GitHub repository link for the footer CTA (placeholder — set during deploy).
+# GitHub repository link for the footer CTA.
 GITHUB_URL = "https://github.com/Prabawas/f1-analytics-tool"
 
 
@@ -354,7 +373,7 @@ def load_drivers(year: int, grand_prix: str) -> list[str]:
     return sorted(laps["Driver"].dropna().unique().tolist())
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=21600, max_entries=15)
 def load_qualifying_laps(year: int, grand_prix: str) -> pd.DataFrame:
     """Return the qualifying session laps, cached per (season, Grand Prix).
 
@@ -366,7 +385,7 @@ def load_qualifying_laps(year: int, grand_prix: str) -> pd.DataFrame:
     return extract_session_laps(session)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=21600, max_entries=15)
 def load_race_laps(year: int, grand_prix: str) -> pd.DataFrame:
     """Return the race session laps, cached per (season, Grand Prix).
 
@@ -474,7 +493,10 @@ if len(DRIVERS) > 5:
     st.stop()
 
 # --- Expensive work: load sessions + compute per-driver metrics ---
-with st.spinner("PROCESSING SESSION DATA..."):
+with st.spinner(
+    "FETCHING OFFICIAL FORMULA 1 SESSION DATA…  \n"
+    "First load may take 10–20 seconds; subsequent loads are cached."
+):
     # Load session laps once, cached so reruns do not reload FastF1 sessions.
     try:
         quali_laps = load_qualifying_laps(YEAR, GRAND_PRIX)

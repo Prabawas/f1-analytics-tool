@@ -48,6 +48,12 @@ _MARKER_LINE_COLOR = "#15151E"  # dark outline separates markers on the dark plo
 _MARKER_LINE_WIDTH = 1.5  # thicker outline keeps HARD readable in the legend
 _TRENDLINE_COLOR = "#CCCCCC"  # light line stays visible on the dark plot
 
+# Tooltip styling — a fixed dark hover, independent of trace/compound colour
+# (Plotly otherwise inherits the marker colour as the hover background).
+_HOVER_BG_COLOR = "#15151E"
+_HOVER_BORDER_COLOR = "#E10600"
+_MONO_FONT_FAMILY = "SF Mono, Menlo, Consolas, Roboto Mono, monospace"
+
 
 def _format_lap_time(total_seconds: float) -> str:
     """Format a lap time in seconds as a human-readable ``M:SS.mmm`` string.
@@ -87,6 +93,11 @@ def _apply_base_layout(
         height=_CHART_HEIGHT,
         margin=dict(l=40, r=24, t=64, b=48),
         font=dict(family=_FONT_FAMILY, size=14, color=_TEXT_COLOR),
+        hoverlabel=dict(
+            bgcolor=_HOVER_BG_COLOR,
+            bordercolor=_HOVER_BORDER_COLOR,
+            font=dict(family=_MONO_FONT_FAMILY, color=_TEXT_COLOR, size=13),
+        ),
         title=dict(
             text=f"<b>{title.upper()}</b>",
             font=dict(size=18, color=_TEXT_COLOR),

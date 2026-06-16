@@ -7,6 +7,7 @@ sustained race pace, and analyse how tyre life shapes a driver's race — built
 on real Formula 1 timing data.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-E10600)
+![CI](https://github.com/Prabawas/f1-analytics-tool/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.37-FF4B4B?logo=streamlit&logoColor=white)
 ![Plotly](https://img.shields.io/badge/Plotly-5.22-3F4F75?logo=plotly&logoColor=white)

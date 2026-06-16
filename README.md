@@ -15,7 +15,7 @@ on real Formula 1 timing data.
 ![Type checked: mypy](https://img.shields.io/badge/typing-mypy-2A6DB2)
 ![License: MIT](https://img.shields.io/badge/License-MIT-3DA639)
 
-**[▶ Live Demo](https://your-app.streamlit.app)** &nbsp;·&nbsp; built with Streamlit, Plotly &amp; FastF1
+**[▶ Live Demo](https://f1-analytics-tool-prabawas.streamlit.app/)** &nbsp;·&nbsp; built with Streamlit, Plotly &amp; FastF1
 
 ![Dashboard overview](docs/images/dashboard-hero.png)
 

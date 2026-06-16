@@ -325,7 +325,7 @@ def render_state_panel(title: str, message: str, hint: str = "") -> None:
 SEASONS = [2023, 2024, 2025]
 
 # GitHub repository link for the footer CTA (placeholder — set during deploy).
-GITHUB_URL = "https://github.com/your-username/apex-telemetry"
+GITHUB_URL = "https://github.com/Prabawas/f1-analytics-tool"
 
 
 @st.cache_data(show_spinner="FETCHING RACE CALENDAR...")
